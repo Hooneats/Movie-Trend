@@ -1,14 +1,13 @@
-package com.example.demo.controller;
+package com.example.project.controller;
 
-import com.example.demo.service.CrawlingDetailDto;
-import com.example.demo.service.MovieDetailDto;
+import com.example.project.service.CrawlingDetailDto;
+import com.example.project.service.MovieDetailDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.net.URL;

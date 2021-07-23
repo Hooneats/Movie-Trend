@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.project.service;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

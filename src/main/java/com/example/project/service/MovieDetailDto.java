@@ -1,9 +1,8 @@
-package com.example.demo.service;
+package com.example.project.service;
 
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class MovieDetailDto {
