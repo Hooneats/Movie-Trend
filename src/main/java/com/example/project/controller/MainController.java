@@ -61,7 +61,10 @@ public class MainController {
     }
 
     @RequestMapping("/search")
-    public String crawlingSearchDto(@RequestParam String query, Model model) {
+    public String crawlingSearchDto(@RequestParam(required = false) String query, Model model) {
+        if (query.trim().isEmpty()) {
+            return "redirect:/";
+        }
         String search = query;
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + my_id + "&query=" + search;
         ObjectMapper objectMapper = new ObjectMapper();
