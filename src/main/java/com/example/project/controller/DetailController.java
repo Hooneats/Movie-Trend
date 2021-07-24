@@ -32,10 +32,12 @@ public class DetailController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MovieDetailDto movieDetailDto = new MovieDetailDto(crDetail.getAdult(), crDetail.getBackdrop_path(),
+        MovieDetailDto movieDetailDto = new MovieDetailDto();
+        movieDetailDto.inputMovieDetailDto(crDetail.getAdult(), crDetail.getBackdrop_path(),
                 crDetail.getPoster_path(), crDetail.getHomepage(), crDetail.getOriginal_language(), crDetail.getOriginal_title(),
                 crDetail.getTitle(), crDetail.getOverview(), crDetail.getRelease_date(), crDetail.getRuntime(), crDetail.getStatus(),
                 crDetail.getVote_average(), crDetail.getVote_count());
+
         for (Map m : crDetail.getGenres()) {
             m.forEach((key,value) -> {
                 if ("name".equals(key)) {

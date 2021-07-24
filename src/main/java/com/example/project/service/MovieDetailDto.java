@@ -22,7 +22,8 @@ public class MovieDetailDto {
     private Long vote_count;
     private List<String> genres;
 
-    public MovieDetailDto(Boolean adult, String backdrop_path, String poster_path, String homepage, String original_language, String original_title, String title, String overview, String release_date, Long runtime, String status, Long vote_average, Long vote_count) {
+
+    public MovieDetailDto inputMovieDetailDto(Boolean adult, String backdrop_path, String poster_path, String homepage, String original_language, String original_title, String title, String overview, String release_date, Long runtime, String status, Long vote_average, Long vote_count) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
         this.poster_path = poster_path;
@@ -36,5 +37,7 @@ public class MovieDetailDto {
         this.status = status;
         this.vote_average = vote_average;
         this.vote_count = vote_count;
+
+        return this;
     }
 }
