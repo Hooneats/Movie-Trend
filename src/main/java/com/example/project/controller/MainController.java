@@ -20,7 +20,7 @@ public class MainController {
 
 
     //original_title, poster_path, vote_average, overview, release_date, title, original_language , id, backdrop_path
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String crawlingMainDto(Model model) {
         List<MovieDto> movieDtoList = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + my_id;
@@ -60,7 +60,7 @@ public class MainController {
         }
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public String crawlingSearchDto(@RequestParam(required = false) String query, Model model) {
         if (query.trim().isEmpty()) {
             return "redirect:/";
