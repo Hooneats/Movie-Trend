@@ -3,12 +3,12 @@ package com.example.project.service;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 //original_title, poster_path, vote_average, overview, release_date, title, original_language , id, backdrop_path
 // id   original_title  title   original_language   release_date    vote_average    overview    poster_path     backdrop_path
 @Data
-public class MovieDto {
+public class MovieVo {
 
     private Long id;
     private String original_title;

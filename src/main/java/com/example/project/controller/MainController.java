@@ -22,37 +22,41 @@ public class MainController {
     //original_title, poster_path, vote_average, overview, release_date, title, original_language , id, backdrop_path
     @GetMapping(value = "/")
     public String crawlingMainDto(Model model) {
-        List<MovieDto> movieDtoList = new ArrayList<>();
+        List<MovieVo> movieVoList = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + my_id;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            CrawlingMainDto craw = objectMapper.readValue(new URL(url), CrawlingMainDto.class);
+            CrawlingMainVo craw = objectMapper.readValue(new URL(url), CrawlingMainVo.class);
             for (Map s : craw.getResults()) {
-                MovieDto movieDto = new MovieDto();
+                MovieVo movieVo = new MovieVo();
                 for (Object o : s.keySet()) {
                     if ("id".equals(o)) {
-                        movieDto.setId(Long.parseLong(String.valueOf(s.get(o))));
+                        movieVo.setId(Long.parseLong(String.valueOf(s.get(o))));
                     } else if ("original_title".equals(o)) {
-                        movieDto.setOriginal_title(String.valueOf(s.get(o)));
+                        movieVo.setOriginal_title(String.valueOf(s.get(o)));
                     } else if ("title".equals(o)) {
-                        movieDto.setTitle(String.valueOf(s.get(o)));
+                        movieVo.setTitle(String.valueOf(s.get(o)));
                     } else if ("original_language".equals(o)) {
-                        movieDto.setOriginal_language(String.valueOf(s.get(o)));
+                        movieVo.setOriginal_language(String.valueOf(s.get(o)));
                     } else if ("release_date".equals(o)) {
-                        movieDto.setRelease_date(Date.valueOf(String.valueOf(s.get(o))));
+                        if (String.valueOf(s.get(o)).length() == 0) {
+                            movieVo.setRelease_date(null);
+                        } else {
+                            movieVo.setRelease_date(Date.valueOf(String.valueOf(s.get(o))));
+                        }
                     } else if ("vote_average".equals(o)) {
-                        movieDto.setVote_average(String.valueOf(s.get(o)));
+                        movieVo.setVote_average(String.valueOf(s.get(o)));
                     } else if ("overview".equals(o)) {
-                        movieDto.setOverview(String.valueOf(s.get(o)));
+                        movieVo.setOverview(String.valueOf(s.get(o)));
                     } else if ("poster_path".equals(o)) {
-                        movieDto.setPoster_path(String.valueOf(s.get(o)));
+                        movieVo.setPoster_path(String.valueOf(s.get(o)));
                     } else if ("backdrop_path".equals(o)) {
-                        movieDto.setBackdrop_path(String.valueOf(s.get(o)));
+                        movieVo.setBackdrop_path(String.valueOf(s.get(o)));
                     }
                 }
-                movieDtoList.add(movieDto);
+                movieVoList.add(movieVo);
             }
-            model.addAttribute("movieList", movieDtoList);
+            model.addAttribute("movieList", movieVoList);
             return "index";
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,41 +65,68 @@ public class MainController {
     }
 
     @GetMapping("/search")
-    public String crawlingSearchDto(@RequestParam(value = "query", required = false) String query, Model model) {
+    public String crawlingSearchDto(@RequestParam(value = "query", required = false) String query,
+                                    @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         if (query.trim().isEmpty()) {
             return "redirect:/";
         }
-        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + my_id + "&query=" + query;
+        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + my_id + "&query=" + query + "&page=" + page;
+//        System.out.println(url);;
         ObjectMapper objectMapper = new ObjectMapper();
-        List<MovieDto> resultList = new ArrayList<>();
+        List<MovieVo> resultList = new ArrayList<>();
         try {
-            CrawlingSearchDto crawlingSearchDto = objectMapper.readValue(new URL(url), CrawlingSearchDto.class);
-            for (Map s : crawlingSearchDto.getResults()) {
-                MovieDto movieDto = new MovieDto();
+            CrawlingSearchVo crawlingSearchVo = objectMapper.readValue(new URL(url), CrawlingSearchVo.class);
+            for (Map s : crawlingSearchVo.getResults()) {
+                MovieVo movieVo = new MovieVo();
                 for (Object o : s.keySet()) {
                     if ("id".equals(o)) {
-                        movieDto.setId(Long.parseLong(String.valueOf(s.get(o))));
+                        movieVo.setId(Long.parseLong(String.valueOf(s.get(o))));
                     } else if ("original_title".equals(o)) {
-                        movieDto.setOriginal_title(String.valueOf(s.get(o)));
+                        movieVo.setOriginal_title(String.valueOf(s.get(o)));
                     } else if ("title".equals(o)) {
-                        movieDto.setTitle(String.valueOf(s.get(o)));
+                        movieVo.setTitle(String.valueOf(s.get(o)));
                     } else if ("original_language".equals(o)) {
-                        movieDto.setOriginal_language(String.valueOf(s.get(o)));
+                        movieVo.setOriginal_language(String.valueOf(s.get(o)));
                     } else if ("release_date".equals(o)) {
-                        movieDto.setRelease_date(Date.valueOf(String.valueOf(s.get(o))));
+                        if (String.valueOf(s.get(o)).length() == 0) {
+                            movieVo.setRelease_date(null);
+                        } else {
+                            movieVo.setRelease_date(Date.valueOf(String.valueOf(s.get(o))));
+                        }
                     } else if ("vote_average".equals(o)) {
-                        movieDto.setVote_average(String.valueOf(s.get(o)));
+                        movieVo.setVote_average(String.valueOf(s.get(o)));
                     } else if ("overview".equals(o)) {
-                        movieDto.setOverview(String.valueOf(s.get(o)));
+                        movieVo.setOverview(String.valueOf(s.get(o)));
                     } else if ("poster_path".equals(o)) {
-                        movieDto.setPoster_path(String.valueOf(s.get(o)));
+                        movieVo.setPoster_path(String.valueOf(s.get(o)));
                     } else if ("backdrop_path".equals(o)) {
-                        movieDto.setBackdrop_path(String.valueOf(s.get(o)));
+                        movieVo.setBackdrop_path(String.valueOf(s.get(o)));
                     }
                 }
-                resultList.add(movieDto);
+                resultList.add(movieVo);
             }
+            SearchResultPageNationVo searchResultPageNationVo = new SearchResultPageNationVo(crawlingSearchVo.getPage(),
+                    crawlingSearchVo.getTotal_pages(), crawlingSearchVo.getTotal_results(),query);
+            int total = crawlingSearchVo.getTotal_pages() / 5;
+            if (crawlingSearchVo.getTotal_pages() % 5 != 0) {
+                total++;
+            }
+            int startNum = 1;
+            int endNum = crawlingSearchVo.getTotal_pages();
+            if (endNum > 10) {
+                if (page < 6) {
+                    startNum = 1;
+                    endNum = 9;
+                } else {
+                    startNum = Math.max(1, page - 4);
+                    endNum = Math.min(page + 4, crawlingSearchVo.getTotal_pages());
+                }
+            }
+
             model.addAttribute("movieList", resultList);
+            model.addAttribute("searchPagiNation", searchResultPageNationVo);
+            model.addAttribute("startNum", startNum);
+            model.addAttribute("endNum", endNum);
             return "index";
         } catch (IOException e) {
             e.printStackTrace();

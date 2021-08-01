@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class CrawlingMainDto {
+public class CrawlingMainVo {
     private int page;
     private List<Map> results;
     private int total_pages;
-    private int total_results;
+    private Long total_results;
 }

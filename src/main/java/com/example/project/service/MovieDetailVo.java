@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class MovieDetailDto {
+public class MovieDetailVo {
 
     private Boolean adult;
     private String backdrop_path;
@@ -23,7 +23,7 @@ public class MovieDetailDto {
     private List<String> genres;
 
 
-    public MovieDetailDto inputMovieDetailDto(Boolean adult, String backdrop_path, String poster_path, String homepage, String original_language, String original_title, String title, String overview, String release_date, Long runtime, String status, Long vote_average, Long vote_count) {
+    public MovieDetailVo inputMovieDetailDto(Boolean adult, String backdrop_path, String poster_path, String homepage, String original_language, String original_title, String title, String overview, String release_date, Long runtime, String status, Long vote_average, Long vote_count) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
         this.poster_path = poster_path;

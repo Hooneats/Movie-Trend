@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class CrawlingDetailDto {
+public class CrawlingDetailVo {
 
     private Boolean adult;
     private String backdrop_path;

@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class CrawlingSearchDto {
+public class CrawlingSearchVo {
 
     private int page;
     private List<Map> results;
     private int total_pages;
-    private int total_results;
+    private Long total_results;
 
 }

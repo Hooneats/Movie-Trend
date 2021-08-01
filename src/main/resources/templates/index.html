@@ -17,6 +17,7 @@
         <div class="container">
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
                 <div class="col" th:each="movie : ${movieList}">
                     <div class="card shadow-sm">
                         <img src="#" alt="#" th:src="|https://image.tmdb.org/t/p/w500${movie.poster_path}|" th:alt="|https://image.tmdb.org/t/p/w500${movie.poster_path}|">
@@ -39,6 +40,25 @@
                 </div>
 
             </div>
+            <br/>
+            <br/>
+
+            <div th:if="${searchPagiNation} != null">
+            <nav aria-label="Page navigation example" th:if="${searchPagiNation.currentPage} < ${searchPagiNation.total_pages}">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${searchPagiNation.currentPage - 1 == 0} ? disabled">
+                        <a th:href="@{|/search?query=${searchPagiNation.searchContent}&page=${searchPagiNation.currentPage - 1}|}" class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i:${#numbers.sequence(startNum, endNum)}">
+                        <a class="page-link" href="#" th:href="@{|/search?query=${searchPagiNation.searchContent}&page=${i}|}" th:text="${i}" th:style="${searchPagiNation.currentPage == i} ? 'font-weight:bold'">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${searchPagiNation.currentPage == searchPagiNation.total_pages} ? disabled">
+                        <a th:href="@{|/search?query=${searchPagiNation.searchContent}&page=${searchPagiNation.currentPage + 1}|}" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            </div>
+
         </div>
     </div>
 
@@ -47,7 +67,7 @@
 
 
 
-<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

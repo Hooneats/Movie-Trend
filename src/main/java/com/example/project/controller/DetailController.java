@@ -1,7 +1,7 @@
 package com.example.project.controller;
 
-import com.example.project.service.CrawlingDetailDto;
-import com.example.project.service.MovieDetailDto;
+import com.example.project.service.CrawlingDetailVo;
+import com.example.project.service.MovieDetailVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,15 +25,15 @@ public class DetailController {
     public String crawlingDetailDto(@PathVariable("id") Long id, Model model) {
         String url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + my_id;
         List<String> genresName = new ArrayList<>();
-        CrawlingDetailDto crDetail = new CrawlingDetailDto();
+        CrawlingDetailVo crDetail = new CrawlingDetailVo();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            crDetail = objectMapper.readValue(new URL(url), CrawlingDetailDto.class);
+            crDetail = objectMapper.readValue(new URL(url), CrawlingDetailVo.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MovieDetailDto movieDetailDto = new MovieDetailDto();
-        movieDetailDto.inputMovieDetailDto(crDetail.getAdult(), crDetail.getBackdrop_path(),
+        MovieDetailVo movieDetailVo = new MovieDetailVo();
+        movieDetailVo.inputMovieDetailDto(crDetail.getAdult(), crDetail.getBackdrop_path(),
                 crDetail.getPoster_path(), crDetail.getHomepage(), crDetail.getOriginal_language(), crDetail.getOriginal_title(),
                 crDetail.getTitle(), crDetail.getOverview(), crDetail.getRelease_date(), crDetail.getRuntime(), crDetail.getStatus(),
                 crDetail.getVote_average(), crDetail.getVote_count());
@@ -44,8 +44,8 @@ public class DetailController {
                     genresName.add(String.valueOf(value));
                 }});
         }
-        movieDetailDto.setGenres(genresName);
-        model.addAttribute("movieDetail", movieDetailDto);
+        movieDetailVo.setGenres(genresName);
+        model.addAttribute("movieDetail", movieDetailVo);
         return "detail";
     }
 
