@@ -21,12 +21,12 @@ public class MainController {
 
     //original_title, poster_path, vote_average, overview, release_date, title, original_language , id, backdrop_path
     @GetMapping(value = "/")
-    public String crawlingMainDto(Model model) {
+    public String jsonMainDto(Model model) {
         List<MovieVo> movieVoList = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + my_id;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            CrawlingMainVo craw = objectMapper.readValue(new URL(url), CrawlingMainVo.class);
+            JsonMainVo craw = objectMapper.readValue(new URL(url), JsonMainVo.class);
             for (Map s : craw.getResults()) {
                 MovieVo movieVo = new MovieVo();
                 for (Object o : s.keySet()) {
@@ -65,18 +65,21 @@ public class MainController {
     }
 
     @GetMapping("/search")
-    public String crawlingSearchDto(@RequestParam(value = "query", required = false) String query,
-                                    @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+    public String jsonSearchDto(@RequestParam(value = "query", required = false) String query,
+                                @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         if (query.trim().isEmpty()) {
             return "redirect:/";
+        } else {
+            query = query.trim().replaceAll(" ", "+");
         }
+
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + my_id + "&query=" + query + "&page=" + page;
 //        System.out.println(url);;
         ObjectMapper objectMapper = new ObjectMapper();
         List<MovieVo> resultList = new ArrayList<>();
         try {
-            CrawlingSearchVo crawlingSearchVo = objectMapper.readValue(new URL(url), CrawlingSearchVo.class);
-            for (Map s : crawlingSearchVo.getResults()) {
+            JsonSearchVo jsonSearchVo = objectMapper.readValue(new URL(url), JsonSearchVo.class);
+            for (Map s : jsonSearchVo.getResults()) {
                 MovieVo movieVo = new MovieVo();
                 for (Object o : s.keySet()) {
                     if ("id".equals(o)) {
@@ -105,21 +108,21 @@ public class MainController {
                 }
                 resultList.add(movieVo);
             }
-            SearchResultPageNationVo searchResultPageNationVo = new SearchResultPageNationVo(crawlingSearchVo.getPage(),
-                    crawlingSearchVo.getTotal_pages(), crawlingSearchVo.getTotal_results(),query);
-            int total = crawlingSearchVo.getTotal_pages() / 5;
-            if (crawlingSearchVo.getTotal_pages() % 5 != 0) {
+            SearchResultPageNationVo searchResultPageNationVo = new SearchResultPageNationVo(jsonSearchVo.getPage(),
+                    jsonSearchVo.getTotal_pages(), jsonSearchVo.getTotal_results(),query);
+            int total = jsonSearchVo.getTotal_pages() / 5;
+            if (jsonSearchVo.getTotal_pages() % 5 != 0) {
                 total++;
             }
             int startNum = 1;
-            int endNum = crawlingSearchVo.getTotal_pages();
+            int endNum = jsonSearchVo.getTotal_pages();
             if (endNum > 10) {
                 if (page < 6) {
                     startNum = 1;
                     endNum = 9;
                 } else {
                     startNum = Math.max(1, page - 4);
-                    endNum = Math.min(page + 4, crawlingSearchVo.getTotal_pages());
+                    endNum = Math.min(page + 4, jsonSearchVo.getTotal_pages());
                 }
             }
 

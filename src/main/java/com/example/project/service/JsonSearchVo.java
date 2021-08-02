@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class CrawlingSearchVo {
+public class JsonSearchVo {
 
     private int page;
     private List<Map> results;

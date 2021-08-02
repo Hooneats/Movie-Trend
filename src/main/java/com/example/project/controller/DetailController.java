@@ -1,6 +1,6 @@
 package com.example.project.controller;
 
-import com.example.project.service.CrawlingDetailVo;
+import com.example.project.service.JsonDetailVo;
 import com.example.project.service.MovieDetailVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
@@ -22,13 +22,13 @@ public class DetailController {
     private String my_id = "160f05c35f34aef167fabe796efb2a8e";
 
     @GetMapping("/{id}")
-    public String crawlingDetailDto(@PathVariable("id") Long id, Model model) {
+    public String jsonDetailDto(@PathVariable("id") Long id, Model model) {
         String url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + my_id;
         List<String> genresName = new ArrayList<>();
-        CrawlingDetailVo crDetail = new CrawlingDetailVo();
+        JsonDetailVo crDetail = new JsonDetailVo();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            crDetail = objectMapper.readValue(new URL(url), CrawlingDetailVo.class);
+            crDetail = objectMapper.readValue(new URL(url), JsonDetailVo.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

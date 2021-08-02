@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class CrawlingMainVo {
+public class JsonMainVo {
     private int page;
     private List<Map> results;
     private int total_pages;

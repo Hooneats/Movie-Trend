@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head('post write')">
+</head>
+<body>
+
+<header th:replace="fragments/common :: header">
+</header>
+
+<!-- Begin page content -->
+<br/>
+<main class="flex-shrink-0">
+  <div class="container">
+
+    <form action="/discussion/form" method="post" th:object="${discussion}">
+      <div style="display: flex; height: 100%; width: 100%;" >
+        <div class="mb-3" style="width: 50%;">
+          <h3 class="mt-5">Post</h3>
+          <label for="movie-title" class="form-label">Movie-Title</label>
+          <input th:field="${movie.movieTitle}" autocomplete="off" type="text" class="form-control" id="movie-title" placeholder="movie-title">
+          <div id="autoSearch"></div>
+          <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input th:field="*{subject}" type="text" class="form-control" id="subject" placeholder="subject">
+            <div id="validationServer03Feedback" class="invalid-feedback">
+              please write subject.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea th:field="*{content}" class="form-control" id="content" rows="10"></textarea>
+            <div id="validationServer04Feedback" class="invalid-feedback">
+              please write content.
+            </div>
+          </div>
+          <div class="text-end">
+            <a type="button" class="btn btn-outline-primary" th:href="@{/discussion/list}">Cancel</a>
+            <button type="button" value="go" class="btn btn-outline-primary">Submit</button>
+          </div>
+        </div>
+        <div th:field="${movie.movieImage}" id="imagDiv" style="margin: 50px; display: none; width: 50%; margin-top: 0;">
+          <img id="imageUrl" src="https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg" style="max-height: 100%;"/>
+        </div>
+        <input type="hidden" th:field="${movie.movieReleaseDate}">
+      </div>
+    </form>
+  </div>
+
+</main>
+
+
+
+<script type="text/javascript" language="javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+  /**성공부분*/
+  try{
+    $(function () {
+      $("#movie-title").on("keyup", function () {
+        $.ajax({
+          url: "/api/search",
+          type: "Get",
+          data: {query: $("#movie-title").val()},
+          success: function (data) {
+            const imagDiv = document.getElementById("imagDiv");
+            imagDiv.style.display = "none";
+            if (data) {
+              var html = "";
+              html += "<select class=\'form-select\' multiple aria-label=\'multiple select example\' id='search-selector'>";
+              var i = 0;
+              for (var movie of data.results) {
+                html += "<option value='" + movie.poster_path + "' id='selectedVal'>" + movie.original_title + ",&nbsp&nbsp" +
+                        movie.release_date + "</option>";
+              }
+              html += "</select>";
+              $("#autoSearch").html(html);
+            } else {
+              var domObj = document.getElementById("search-selector");
+              domObj.style.display = "none";
+            }
+
+            // const options = document.querySelectorAll("#selectedVal");
+            const selector = document.getElementById("search-selector");
+
+            document.getElementById("movie-title").addEventListener("keydown",(e)=>{
+              if (e.code == '40') {
+                selector.focus();
+              }
+            })
+
+              selector.addEventListener("change",(e)=>{
+                document.getElementById("movie-title").value= selector[selector.selectedIndex].innerText
+                var imageUrl = document.getElementById("imageUrl");
+                imageUrl.src = "https://image.tmdb.org/t/p/w500"+selector[selector.selectedIndex].value;
+              })
+
+            selector.addEventListener("dblclick",(e)=>{
+              var domObj = document.getElementById("search-selector");
+              domObj.style.display = "none";
+              imagDiv.style.display = "block";
+            })
+          }
+        })
+      })
+    });
+  }catch (e) {
+    console.log(e);
+  }
+  /**여기까지*/
+
+
+
+</script>
+
+
+<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head('detail')">
@@ -20,10 +19,10 @@
 
   <main class="px-3">
     <h1 th:text="${movieDetail.title}" style="margin: 50px 0 50px 0;">title</h1>
-    <img src="#" alt="#" th:src="|https://image.tmdb.org/t/p/w500${movieDetail.poster_path}|">
+    <img src="#" alt="#" th:src="|https://image.tmdb.org/t/p/w500${movieDetail.poster_path}|" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'">
     <p class="lead" th:text="|Orginal Title : ${movieDetail.original_title}|" style="padding: 30px;">original_title</p>
     <p class="lead" th:text="${movieDetail.overview}" style="padding: 0 250px 40px 250px;">overview</p>
-    <a class="text-start" href="#" th:href="${movieDetail.homepage}" style="text-decoration: none">
+    <a class="text-start" th:if="${!movieDetail.homepage.isEmpty()}" href="#" th:href="${movieDetail.homepage}" style="text-decoration: none">
     <span class="lead" th:text="|Home Page : ${movieDetail.homepage}|" style="padding: 50px; color: aliceblue;">homepage</span>
     </a>
     <span class="lead text-cente" th:text="|Status : ${movieDetail.status}|" style="padding: 50px;">status</span>
@@ -39,7 +38,7 @@
     <span class="lead lead text-cente" th:text="|Vote_Average : ${movieDetail.vote_average}|" style="padding: 30px;">vote_average</span>
     <span class="lead text-end" th:text="|Runtime : ${movieDetail.runtime} min|" style="padding: 30px;">runtime</span>
     <div style="margin: 50px 0 50px 0;">
-      <img src="#" alt="#" th:src="|https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}|" th:alt="|https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}|">
+      <img src="#" alt="#" style="width: 100%; height: 100%"  th:src="|https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}|" th:alt="|https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}|" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'">
     </div>
 
   </main>
