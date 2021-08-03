@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -53,5 +55,9 @@ public class Discussion {
         this.content = content;
         this.movie = movie;
         this.createTime = createTime;
+    }
+
+    public void inputMovie(Movie movie) {
+        this.movie = movie;
     }
 }

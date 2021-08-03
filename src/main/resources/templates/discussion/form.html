@@ -12,37 +12,39 @@
 <main class="flex-shrink-0">
   <div class="container">
 
-    <form action="/discussion/form" method="post" th:object="${discussion}">
+    <form action="/discussion/form" method="post" th:object="${discussionForm}">
       <div style="display: flex; height: 100%; width: 100%;" >
         <div class="mb-3" style="width: 50%;">
           <h3 class="mt-5">Post</h3>
           <label for="movie-title" class="form-label">Movie-Title</label>
-          <input th:field="${movie.movieTitle}" autocomplete="off" type="text" class="form-control" id="movie-title" placeholder="movie-title">
+          <input th:field="*{movieTitle}" autocomplete="off" type="text" class="form-control" id="movie-title" placeholder="movie-title">
           <div id="autoSearch"></div>
           <div class="mb-3">
             <label for="subject" class="form-label">Subject</label>
             <input th:field="*{subject}" type="text" class="form-control" id="subject" placeholder="subject">
-            <div id="validationServer03Feedback" class="invalid-feedback">
+            <div th:if="${#fields.hasErrors('subject')}"
+                 th:errors="*{subject}" style="color: #ff1500">
               please write subject.
             </div>
           </div>
           <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea th:field="*{content}" class="form-control" id="content" rows="10"></textarea>
-            <div id="validationServer04Feedback" class="invalid-feedback">
+            <div th:if="${#fields.hasErrors('content')}"
+                 th:errors="*{content}" style="color: #ff1500">
               please write content.
             </div>
           </div>
           <div class="text-end">
             <a type="button" class="btn btn-outline-primary" th:href="@{/discussion/list}">Cancel</a>
-            <button type="button" value="go" class="btn btn-outline-primary">Submit</button>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
           </div>
         </div>
-        <div id="imagDiv" style="margin: 50px; display: none; width: 50%; margin-top: 0;">
-          <img id="imageUrl" src="https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg" style="max-height: 100%;"/>
+        <div th:style="*{movieImage} == null ? 'display:none;' : 'display:block' " id="imagDiv" style="padding: 50px; width: 50%; margin-top: 0;">
+          <img id="imageUrl" th:src="*{movieImage}" src="#" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'" style="max-height: 100%; margin-left: 50px" />
         </div>
-        <input type="hidden" th:field="${movie.movieImage}" value="" id="inputImg">
-        <input type="hidden" th:field="${movie.movieReleaseDate}">
+        <input type="hidden" th:field="*{movieImage}" value="" id="inputImg">
+<!--        <input type="hidden" th:field="*{movieReleaseDate}" value="2017-08-15">-->
       </div>
     </form>
   </div>
@@ -81,12 +83,21 @@
               domObj.style.display = "none";
             }
 
+
+
             // const options = document.querySelectorAll("#selectedVal");
             const selector = document.getElementById("search-selector");
 
             document.getElementById("movie-title").addEventListener("keydown",(e)=>{
               if (e.code === 'ArrowDown') {
                 selector.focus();
+              }
+            })
+            document.querySelector("form").addEventListener("keydown",(e)=>{
+              if (e.code === 'Enter') {
+                var domObj = document.getElementById("search-selector");
+                domObj.style.display = "none";
+                imagDiv.style.display = "block";
               }
             })
 
@@ -96,7 +107,6 @@
               imageUrl.src = "https://image.tmdb.org/t/p/w500"+selector[selector.selectedIndex].value;
               var inputImg = document.getElementById("inputImg");
               inputImg.setAttribute('value', imageUrl.src);
-
             })
 
             selector.addEventListener("dblclick",(e)=>{
