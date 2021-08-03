@@ -38,9 +38,10 @@
             <button type="button" value="go" class="btn btn-outline-primary">Submit</button>
           </div>
         </div>
-        <div th:field="${movie.movieImage}" id="imagDiv" style="margin: 50px; display: none; width: 50%; margin-top: 0;">
+        <div id="imagDiv" style="margin: 50px; display: none; width: 50%; margin-top: 0;">
           <img id="imageUrl" src="https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg" style="max-height: 100%;"/>
         </div>
+        <input type="hidden" th:field="${movie.movieImage}" value="" id="inputImg">
         <input type="hidden" th:field="${movie.movieReleaseDate}">
       </div>
     </form>
@@ -84,16 +85,19 @@
             const selector = document.getElementById("search-selector");
 
             document.getElementById("movie-title").addEventListener("keydown",(e)=>{
-              if (e.code == '40') {
+              if (e.code === 'ArrowDown') {
                 selector.focus();
               }
             })
 
-              selector.addEventListener("change",(e)=>{
-                document.getElementById("movie-title").value= selector[selector.selectedIndex].innerText
-                var imageUrl = document.getElementById("imageUrl");
-                imageUrl.src = "https://image.tmdb.org/t/p/w500"+selector[selector.selectedIndex].value;
-              })
+            selector.addEventListener("change",(e)=>{
+              document.getElementById("movie-title").value= selector[selector.selectedIndex].innerText
+              var imageUrl = document.getElementById("imageUrl");
+              imageUrl.src = "https://image.tmdb.org/t/p/w500"+selector[selector.selectedIndex].value;
+              var inputImg = document.getElementById("inputImg");
+              inputImg.setAttribute('value', imageUrl.src);
+
+            })
 
             selector.addEventListener("dblclick",(e)=>{
               var domObj = document.getElementById("search-selector");
