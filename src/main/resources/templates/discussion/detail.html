@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head('post detail')">
+</head>
+<body>
+
+<header th:replace="fragments/common :: header">
+</header>
+
+<!-- Begin page content -->
+<br/>
+<main class="flex-shrink-0">
+  <div class="container">
+
+    <div>
+      <div style="display: flex; height: 100%; width: 100%;" >
+        <div class="mb-3" style="width: 50%;">
+          <h3 class="mt-5">Post</h3>
+          <div th:style="${discussion.movieTitle} == null ? 'display:none;' : 'display:block'">
+            <label for="movie-title" class="form-label">Movie-Title</label>
+            <div th:text="*{discussion.movieTitle}" autocomplete="off" type="text" class="form-control" id="movie-title" placeholder="movie-title"></div>
+          </div>
+          <div id="autoSearch"></div>
+          <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <div th:text="*{discussion.subject}" type="text" class="form-control" id="subject" placeholder="subject"></div>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <div th:text="*{discussion.content}" class="form-control" id="content" rows="10"></div>
+          </div>
+          <div class="text-end">
+            <button type="button" class="btn btn-outline-primary">comment</button>
+            <button type="button" class="btn btn-outline-primary">back</button>
+          </div>
+        </div>
+        <div th:style="*{discussion.movieImage} == null ? 'display:none;' : 'display:block' " id="imagDiv" style="padding: 50px; width: 50%; margin-top: 0;">
+          <img id="imageUrl" th:src="*{discussion.movieImage}" src="#" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'" style="width: 450px; margin-left: 50px" />
+        </div>
+        <!--        <input type="hidden" th:field="*{movieReleaseDate}" value="2017-08-15">-->
+      </div>
+    </div>
+  </div>
+
+</main>
+
+
+
+
+<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

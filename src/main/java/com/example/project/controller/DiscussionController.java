@@ -33,9 +33,16 @@ public class DiscussionController {
         return "discussion/list";
     }
 
-    @GetMapping("/detail")
-    public String detail(Model model) {
-        return "";
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable(name = "id") Long id, Model model) {
+        Discussion discussion = discussionService.findById(id);
+        DiscussionForm discussionForm = new DiscussionForm();
+        discussionForm.ifNullMovie(discussion.getSubject(), discussion.getContent());
+        if (discussion.getDiscussionMovie() != null) {
+            discussionForm.existMovie(discussion.getDiscussionMovie().getMovieTitle(), discussion.getDiscussionMovie().getMovieImage());
+        }
+        model.addAttribute("discussion", discussionForm);
+        return "discussion/detail";
     }
 
     @GetMapping("/form")

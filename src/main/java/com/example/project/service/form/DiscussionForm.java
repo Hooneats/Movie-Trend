@@ -19,6 +19,15 @@ public class DiscussionForm {
     private String movieTitle;
     private String movieImage;
 
+    public void ifNullMovie(String subject, String content) {
+        this.subject = subject;
+        this.content = content;
+    }
+
+    public void existMovie(String movieTitle, String movieImage) {
+        this.movieTitle = movieTitle;
+        this.movieImage = movieImage;
+    }
 
 
 }

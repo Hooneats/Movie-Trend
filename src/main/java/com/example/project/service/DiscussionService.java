@@ -31,4 +31,7 @@ public class DiscussionService {
         return discussionRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
+    public Discussion findById(Long id) {
+        return discussionRepository.findById(id).orElse(null);
+    }
 }
