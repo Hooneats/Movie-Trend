@@ -1,6 +1,9 @@
 package com.example.project.controller;
 
-import com.example.project.service.*;
+import com.example.project.service.vo.JsonMainVo;
+import com.example.project.service.vo.JsonSearchVo;
+import com.example.project.service.vo.MovieVo;
+import com.example.project.service.vo.SearchResultPageNationVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

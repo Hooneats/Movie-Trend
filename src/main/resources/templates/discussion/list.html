@@ -14,17 +14,16 @@
 </div>
 <br/>
 <div class="row mb-2" style="padding: 50px">
-    <div class="col-md-6" th:each=" discussion : ${discussionAll}">
+    <div class="col-md-6" th:each=" discussion : ${discussionAll}" style="width: 27em; height: 500px;">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
                 <!--나중에 추가 로그인시-->
                 <strong class="d-inline-block mb-2 text-primary" th:text="|UserId 매핑하자|">userId</strong>
                 <!--여기까지-->
                 <h3 class="mb-0" th:text="|subject: ${discussion.subject}|">subject</h3>
-                <div class="mb-1 text-muted" th:text="|content: ${discussion.content}|">content</div>
-                <div th:if="${discussion.movie} != null">
-                <div class="mb-1 text-muted" th:text="|movie-title: ${discussion.movie.movieTitle}|">movie-title</div>
-                <div class="mb-1 text-muted" th:text="|release-date: ${discussion.movie.movieReleaseDate}|">movie-release-date</div>
+                <div style="height: 100px; word-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow:ellipsis;" class="mb-1 text-muted" th:text="|content: ${discussion.content}|">content</div>
+                <div th:if="${discussion.discussionMovie} != null">
+                <div class="mb-1 text-muted" th:text="|movie-title: ${discussion.discussionMovie.movieTitle}|">movie-title</div>
                 </div>
                 <div class="mb-1 text-muted" th:text="|post-writing-time: ${discussion.createTime}|">post-create-date</div>
                 <div class="d-flex justify-content-between align-items-center">
@@ -32,26 +31,35 @@
                         <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/}">View</a>
                     </div>
                 </div>
+                <div th:if="${discussion.discussionMovie} != null">
+                    <img src="#" alt="#" th:src="${discussion.discussionMovie.movieImage}" style="height: 150px; display: block; margin: auto;">
+                </div>
             </div>
+
+
+<!--            <div class="col-auto d-none d-lg-block" th:if="${discussion.discussionMovie.movieImage} != null">-->
+<!--                <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
             <!--여기서부터가 문제다 !tblUserList.empty-->
 
-<!--            <div th:if="${discussion.movie.movieImage}" class="align-items-end" style="padding: 10px">-->
+<!--            <div th:if="${discussion.discussionMovie.movieImage}" class="align-items-end" style="padding: 10px">-->
 <!--                <h1>우아아아아</h1>-->
 <!--            </div>-->
-<!--            <div th:if="${!discussion.movie.movieImage.}" class="col-auto d-none d-lg-block" style="padding: 50px">-->
-<!--                <img th:src="|https://image.tmdb.org/t/p/w500${discussion.movie.movieImage}|" width="200" height="250" src="#" alt="#">-->
-<!--&lt;!&ndash;                <br/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <img th:src="|https://image.tmdb.org/t/p/w500${discussion.movie.movieImage}|" width="200" height="250" style="margin: 10px">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <title th:text="${discussion.movie.movieTitle}">Placeholder</title>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <rect width="100%" height="100%" fill="#55595c"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                </img>&ndash;&gt;-->
+<!--            <div th:if="${discussion.discussionMovie.movieImage} != null" class="col-auto d-none d-lg-block" style="padding: 50px">-->
+<!--                <img th:src="${discussion.discussionMovie.movieImage}" width="200" height="250" src="#" alt="#">-->
+<!--                <br/>-->
+<!--                <img th:src="${discussion.discussionMovie.movieImage}" width="200" height="250" style="margin: 10px">-->
+<!--                    <title th:text="${discussion.discussionMovie.movieTitle}">Placeholder</title>-->
+<!--                    <rect width="100%" height="100%" fill="#55595c"/>-->
+<!--                </img>-->
 <!--            </div>-->
 
-<!--            <div th:if="${discussion.movie} == null" class="col-auto d-none d-lg-block">-->
+<!--            <div th:if="${discussion.discussionMovie} == null" class="col-auto d-none d-lg-block">-->
 <!--                <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 아아아" preserveAspectRatio="xMidYMid slice" focusable="false">-->
-<!--                    <title th:text="${discussion.movie.movieTitle}">Placeholder</title>-->
+<!--                    <title th:text="${discussion.discussionMovie.movieTitle}">Placeholder</title>-->
 <!--                    <rect width="100%" height="100%" fill="#55595c"/>-->
-<!--                    <text x="50%" y="50%" fill="#eceeef" dy=".3em" th:text="${discussion.movie.movieTitle}">-->
+<!--                    <text x="50%" y="50%" fill="#eceeef" dy=".3em" th:text="${discussion.discussionMovie.movieTitle}">-->
 <!--                        아아아-->
 <!--                    </text>-->
 <!--                </svg>-->

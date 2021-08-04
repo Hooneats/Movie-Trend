@@ -4,6 +4,7 @@ import com.example.project.domain.Discussion;
 import com.example.project.domain.User;
 import com.example.project.repository.DiscussionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +27,8 @@ public class DiscussionService {
     }
 
     @Transactional(readOnly = false)
-    public List<Discussion> findAll() {
-        return discussionRepository.findAll();
+    public List<Discussion> findAllByIdDesc() {
+        return discussionRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
 }

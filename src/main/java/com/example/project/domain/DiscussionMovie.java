@@ -16,16 +16,15 @@ import java.util.Date;
 @Embeddable
 @Data
 @NoArgsConstructor
-public class Movie {
+public class DiscussionMovie {
 
     private String movieTitle;
     private String movieImage;
-    @Temporal(value = TemporalType.DATE)
-    private Date movieReleaseDate;
 
-    public Movie(String movieTitle, String movieImage, Date movieReleaseDate) {
+
+    public DiscussionMovie(String movieTitle, String movieImage) {
         this.movieTitle = movieTitle;
         this.movieImage = movieImage;
-        this.movieReleaseDate = movieReleaseDate;
+
     }
 }

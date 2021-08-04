@@ -1,7 +1,7 @@
 package com.example.project.controller;
 
-import com.example.project.service.JsonDetailVo;
-import com.example.project.service.MovieDetailVo;
+import com.example.project.service.vo.JsonDetailVo;
+import com.example.project.service.vo.MovieDetailVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

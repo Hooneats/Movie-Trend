@@ -1,7 +1,6 @@
 package com.example.project.service;
 
 import com.example.project.domain.Discussion;
-import com.example.project.domain.Movie;
 import com.example.project.domain.User;
 import com.example.project.repository.DiscussionRepository;
 import com.example.project.repository.UserRepository;

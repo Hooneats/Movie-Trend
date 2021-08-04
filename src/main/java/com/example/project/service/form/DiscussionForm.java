@@ -1,10 +1,14 @@
-package com.example.project.form;
+package com.example.project.service.form;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DiscussionForm {
 
     @NotEmpty(message = "Subject can't be Empty")

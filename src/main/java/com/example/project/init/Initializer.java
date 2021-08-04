@@ -1,7 +1,7 @@
 package com.example.project.init;
 
 import com.example.project.domain.Discussion;
-import com.example.project.domain.Movie;
+import com.example.project.domain.DiscussionMovie;
 import com.example.project.domain.User;
 import com.example.project.service.DiscussionService;
 import com.example.project.service.UserService;
@@ -37,13 +37,13 @@ public class Initializer {
         userList.add(user5);
         userService.saveAll(userList);
 
-        Movie movie1 = new Movie("블랙위도우","/wwemzKWzjKYJFfCeiB57q3r4Bcm.png", new Date());
-        Movie movie2 = new Movie("재밌다", "/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg", new Date());
+        DiscussionMovie movie1 = new DiscussionMovie("black widow","https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg");
+        DiscussionMovie movie2 = new DiscussionMovie("It's funny", "https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg");
 
         List<Discussion> discussionList = new ArrayList<>();
-        Discussion discussion1 = new Discussion("이거봤어?", "완전재밌어", movie1, new Date());
-        Discussion discussion2 = new Discussion("이것도?", "완전재밌어", movie2, new Date());
-        Discussion discussion3 = new Discussion("이것도?", "완전재밌어", new Date());
+        Discussion discussion1 = new Discussion("do you watch this?", "It's funny", movie1, new Date());
+        Discussion discussion2 = new Discussion("this?", "It's funny", movie2, new Date());
+        Discussion discussion3 = new Discussion("that?", "It's funny", new Date());
 //        discussion1.addUser(user1);
 //        discussion2.addUser(user2);
 //        discussion3.addUser(user3);

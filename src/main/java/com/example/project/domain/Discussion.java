@@ -29,7 +29,7 @@ public class Discussion {
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 1000)
     private String content;
 
     @Column(name = "create_date")
@@ -37,27 +37,26 @@ public class Discussion {
     private Date createTime;
 
     @Embedded
-    private Movie movie;
+    private DiscussionMovie discussionMovie;
 
 //    public void addUser(User user) {
 //        this.user = user;
 //        user.getDiscussionList().add(this);
 //    }
 
-    public Discussion(String subject, String content, Movie movie, Date createTime) {
+    public Discussion(String subject, String content, DiscussionMovie discussionMovie, Date createTime) {
         this.subject = subject;
         this.content = content;
-        this.movie = movie;
+        this.discussionMovie = discussionMovie;
         this.createTime = createTime;
     }
     public Discussion(String subject, String content, Date createTime) {
         this.subject = subject;
         this.content = content;
-        this.movie = movie;
         this.createTime = createTime;
     }
 
-    public void inputMovie(Movie movie) {
-        this.movie = movie;
+    public void inputMovie(DiscussionMovie movie) {
+        this.discussionMovie = movie;
     }
 }
