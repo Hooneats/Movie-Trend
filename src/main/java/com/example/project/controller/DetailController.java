@@ -24,6 +24,8 @@ public class DetailController {
     @GetMapping("/{id}")
     public String jsonDetailDto(@PathVariable("id") Long id, Model model) {
         String url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + my_id;
+        System.out.println(url);
+
         List<String> genresName = new ArrayList<>();
         JsonDetailVo crDetail = new JsonDetailVo();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -33,6 +35,9 @@ public class DetailController {
             e.printStackTrace();
         }
         MovieDetailVo movieDetailVo = new MovieDetailVo();
+        if (crDetail.getHomepage() == null) {
+            crDetail.setHomepage("");
+        }
         movieDetailVo.inputMovieDetailDto(crDetail.getAdult(), crDetail.getBackdrop_path(),
                 crDetail.getPoster_path(), crDetail.getHomepage(), crDetail.getOriginal_language(), crDetail.getOriginal_title(),
                 crDetail.getTitle(), crDetail.getOverview(), crDetail.getRelease_date(), crDetail.getRuntime(), crDetail.getStatus(),

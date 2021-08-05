@@ -15,27 +15,32 @@
     <div>
       <div style="display: flex; height: 100%; width: 100%;" >
         <div class="mb-3" style="width: 50%;">
-          <h3 class="mt-5">Post</h3>
+          <br/><br/>
           <div th:style="${discussion.movieTitle} == null ? 'display:none;' : 'display:block'">
-            <label for="movie-title" class="form-label">Movie-Title</label>
+            <h1 for="movie-title" class="form-label">Movie-Title</h1>
             <div th:text="*{discussion.movieTitle}" autocomplete="off" type="text" class="form-control" id="movie-title" placeholder="movie-title"></div>
           </div>
+          <br/><br/>
           <div id="autoSearch"></div>
           <div class="mb-3">
-            <label for="subject" class="form-label">Subject</label>
+            <h2 for="subject" class="form-label">Subject</h2>
             <div th:text="*{discussion.subject}" type="text" class="form-control" id="subject" placeholder="subject"></div>
           </div>
+          <br/><br/>
           <div class="mb-3">
-            <label for="content" class="form-label">Content</label>
-            <div th:text="*{discussion.content}" class="form-control" id="content" rows="10"></div>
+            <h2 for="content" class="form-label">Content</h2>
+            <textarea disabled style="background-color: #ffffff;" th:text="*{discussion.content}" class="form-control" id="content" rows="10"></textarea>
           </div>
-          <div class="text-end">
-            <button type="button" class="btn btn-outline-primary">comment</button>
-            <button type="button" class="btn btn-outline-primary">back</button>
+          <br/>
+          <div class="text-end" style="margin: 20px;">
+            <button id="discussionDetailComment" type="button" class="btn btn-outline-primary">comment</button>
+            <a th:href="@{/discussion/list}" type="button" class="btn btn-outline-primary">back</a>
+            <a th:href="@{|/discussion/form?id=${discussion.id}|}" id="updateDiscussion" type="button" class="btn btn-primary">update</a>
           </div>
+
         </div>
-        <div th:style="*{discussion.movieImage} == null ? 'display:none;' : 'display:block' " id="imagDiv" style="padding: 50px; width: 50%; margin-top: 0;">
-          <img id="imageUrl" th:src="*{discussion.movieImage}" src="#" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'" style="width: 450px; margin-left: 50px" />
+        <div th:style="*{discussion.movieImage} == null ? 'display:none;' : 'display:block' " id="imagDiv" style="padding: 50px; width: 50%;">
+          <img class="rounded" id="imageUrl" th:src="*{discussion.movieImage}" src="#" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'" style="width: 450px; margin-left: 50px;" />
         </div>
         <!--        <input type="hidden" th:field="*{movieReleaseDate}" value="2017-08-15">-->
       </div>

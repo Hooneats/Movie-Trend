@@ -44,13 +44,14 @@ public class Discussion {
 //        user.getDiscussionList().add(this);
 //    }
 
-    public Discussion(String subject, String content, DiscussionMovie discussionMovie, Date createTime) {
+    public Discussion(Long id, String subject, String content, DiscussionMovie discussionMovie, Date createTime) {
+        this.id = id;
         this.subject = subject;
         this.content = content;
         this.discussionMovie = discussionMovie;
         this.createTime = createTime;
     }
-    public Discussion(String subject, String content, Date createTime) {
+    public Discussion(Long id, String subject, String content, Date createTime) {
         this.subject = subject;
         this.content = content;
         this.createTime = createTime;

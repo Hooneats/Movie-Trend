@@ -22,8 +22,7 @@
     <img src="#" alt="#" th:src="|https://image.tmdb.org/t/p/w500${movieDetail.poster_path}|" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'">
     <p class="lead" th:text="|Orginal Title : ${movieDetail.original_title}|" style="padding: 30px;">original_title</p>
     <p class="lead" th:text="${movieDetail.overview}" style="padding: 0 250px 40px 250px;">overview</p>
-    <a class="text-start" th:if="${!movieDetail.homepage.isEmpty()}" href="#" th:href="${movieDetail.homepage}" style="text-decoration: none">
-    <span class="lead" th:text="|Home Page : ${movieDetail.homepage}|" style="padding: 50px; color: aliceblue;">homepage</span>
+    <a class="text-start lead" th:if="${!movieDetail.homepage.isEmpty()}" href="#" th:href="${movieDetail.homepage}" style="text-decoration: none; padding: 50px; color: aliceblue;" th:text="|Home Page : ${movieDetail.homepage}|">
     </a>
     <span class="lead text-cente" th:text="|Status : ${movieDetail.status}|" style="padding: 50px;">status</span>
     <span class="lead text-end" th:text="|Release_Date : ${movieDetail.release_date}|" style="padding: 50px;">release_date</span>

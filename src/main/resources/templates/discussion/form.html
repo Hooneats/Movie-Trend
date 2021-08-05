@@ -37,14 +37,15 @@
           </div>
           <div class="text-end">
             <a type="button" class="btn btn-outline-primary" th:href="@{/discussion/list}">Cancel</a>
-            <button type="submit" class="btn btn-outline-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>
         <div th:style="*{movieImage} == null ? 'display:none;' : 'display:block' " id="imagDiv" style="padding: 50px; width: 50%; margin-top: 0;">
-          <img id="imageUrl" th:src="*{movieImage}" src="#" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'" style="max-height: 100%; margin-left: 50px" />
+          <img id="imageUrl" th:src="*{movieImage}" src="#" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'" style="width: 450px; margin-left: 50px" />
         </div>
         <input type="hidden" th:field="*{movieImage}" value="" id="inputImg">
-<!--        <input type="hidden" th:field="*{movieReleaseDate}" value="2017-08-15">-->
+        <input type="hidden" th:field="*{id}" value="">
+        <!--        <input type="hidden" th:field="*{movieReleaseDate}" value="2017-08-15">-->
       </div>
     </form>
   </div>
@@ -57,6 +58,21 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+  $('input[type="text"]').keydown(function(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+    }
+  });
+
+  // document.querySelector("input[type='text']").addEventListener("keydown", function(event) {
+  //   if (event.code === "Enter") {
+  //     event.preventDefault();
+  //     return false;
+  //   }
+  // });
+
+
   /**성공부분*/
   try{
     $(function () {
@@ -83,7 +99,12 @@
               domObj.style.display = "none";
             }
 
-
+            document.querySelector("select").addEventListener("keydown", function (event){
+              if (event.code === "Enter") {
+                event.preventDefault();
+                return false;
+              }
+            })
 
             // const options = document.querySelectorAll("#selectedVal");
             const selector = document.getElementById("search-selector");
@@ -91,13 +112,6 @@
             document.getElementById("movie-title").addEventListener("keydown",(e)=>{
               if (e.code === 'ArrowDown') {
                 selector.focus();
-              }
-            })
-            document.querySelector("form").addEventListener("keydown",(e)=>{
-              if (e.code === 'Enter') {
-                var domObj = document.getElementById("search-selector");
-                domObj.style.display = "none";
-                imagDiv.style.display = "block";
               }
             })
 

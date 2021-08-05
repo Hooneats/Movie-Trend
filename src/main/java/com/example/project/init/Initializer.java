@@ -41,9 +41,9 @@ public class Initializer {
         DiscussionMovie movie2 = new DiscussionMovie("It's funny", "https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg");
 
         List<Discussion> discussionList = new ArrayList<>();
-        Discussion discussion1 = new Discussion("do you watch this?", "It's funny", movie1, new Date());
-        Discussion discussion2 = new Discussion("this?", "It's funny", movie2, new Date());
-        Discussion discussion3 = new Discussion("that?", "It's funny", new Date());
+        Discussion discussion1 = new Discussion(1L,"do you watch this?", "It's funny", movie1, new Date());
+        Discussion discussion2 = new Discussion(2L,"this?", "It's funny", movie2, new Date());
+        Discussion discussion3 = new Discussion(3L,"that?", "It's funny", new Date());
 //        discussion1.addUser(user1);
 //        discussion2.addUser(user2);
 //        discussion3.addUser(user3);

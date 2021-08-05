@@ -37,7 +37,7 @@ public class DiscussionController {
     public String detail(@PathVariable(name = "id") Long id, Model model) {
         Discussion discussion = discussionService.findById(id);
         DiscussionForm discussionForm = new DiscussionForm();
-        discussionForm.ifNullMovie(discussion.getSubject(), discussion.getContent());
+        discussionForm.ifNullMovie(discussion.getId(), discussion.getSubject(), discussion.getContent());
         if (discussion.getDiscussionMovie() != null) {
             discussionForm.existMovie(discussion.getDiscussionMovie().getMovieTitle(), discussion.getDiscussionMovie().getMovieImage());
         }
@@ -46,9 +46,22 @@ public class DiscussionController {
     }
 
     @GetMapping("/form")
-    public String getForm(Model model) {
+    public String getForm(@RequestParam(name = "id", required = false) Long id, Model model) {
+        if (id == null) {
             model.addAttribute("discussionForm", new DiscussionForm());
+            return "discussion/form";
+        } else {
+            String idStr = String.valueOf(id).trim();
+        }
+        Discussion findDiscussion = discussionService.findById(id);
+        DiscussionForm findDiscussionForm = new DiscussionForm();
+        findDiscussionForm.ifNullMovie(findDiscussion.getId(), findDiscussion.getSubject(), findDiscussion.getContent());
+        if (findDiscussion.getDiscussionMovie() != null) {
+            findDiscussionForm.existMovie(findDiscussion.getDiscussionMovie().getMovieTitle(), findDiscussion.getDiscussionMovie().getMovieImage());
+        }
+        model.addAttribute("discussionForm", findDiscussionForm);
         return "discussion/form";
+
     }
 
     @PostMapping("/form")
@@ -60,8 +73,9 @@ public class DiscussionController {
         if (result.hasErrors()) {
             return "discussion/form";
         }
-        System.out.println(discussionForm.toString());
-        Discussion discussion = new Discussion(discussionForm.getSubject(), discussionForm.getContent(),
+//        System.out.println(discussionForm.toString());
+
+        Discussion discussion = new Discussion(discussionForm.getId(), discussionForm.getSubject(), discussionForm.getContent(),
                 new DiscussionMovie(discussionForm.getMovieTitle(),discussionForm.getMovieImage()),new Date());
         discussionService.save(discussion);
 

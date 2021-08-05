@@ -9,13 +9,13 @@
 </header>
 
 <br/>
-<div class="text-end" style="margin-right: 50px">
+<div class="text-end" style="margin-right: 50px; margin-right: 370px">
     <a type="button" class="btn btn-secondary" th:href="@{/discussion/form}">post write</a>
 </div>
 <br/>
-<div class="row mb-2" style="padding: 50px">
+<div class="row mb-2" style="padding: 50px;">
     <div class="col-md-6" th:each=" discussion : ${discussionAll}" style="width: 27em; height: 500px;">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="height: 500px;">
             <div class="col p-4 d-flex flex-column position-static">
                 <!--나중에 추가 로그인시-->
                 <strong class="d-inline-block mb-2 text-primary" th:text="|UserId 매핑하자|">userId</strong>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div th:if="${discussion.discussionMovie} != null">
-                    <img src="#" alt="#" th:src="${discussion.discussionMovie.movieImage}" style="height: 150px; display: block; margin: auto;">
+                    <img src="#" alt="#" class="rounded" th:src="${discussion.discussionMovie.movieImage}" style="height: 150px; display: block; margin: auto;" onerror="this.src='https://cdn.pixabay.com/photo/2016/01/19/14/53/camera-1149041_960_720.jpg'">
                 </div>
             </div>
 
