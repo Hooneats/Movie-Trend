@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head('post detail')">
+
 </head>
 <body>
 
@@ -9,7 +10,7 @@
 
 <!-- Begin page content -->
 <br/>
-<main class="flex-shrink-0">
+<main class="flex-shrink-0" id="app">
   <div class="container">
 
     <div>
@@ -33,7 +34,7 @@
           </div>
           <br/>
           <div class="text-end" style="margin: 20px;">
-            <button id="discussionDetailComment" type="button" class="btn btn-outline-primary">comment</button>
+            <button id="discussionDetailComment" type="button" class="btn btn-outline-primary" @click="commentShow">comment</button>
             <a th:href="@{/discussion/list}" type="button" class="btn btn-outline-primary">back</a>
             <a th:href="@{|/discussion/form?id=${discussion.id}|}" id="updateDiscussion" type="button" class="btn btn-primary">update</a>
           </div>
@@ -47,8 +48,57 @@
     </div>
   </div>
 
-</main>
+  <!--댓글-->
+  <!-- 추후 form 이 아닌 axios 를 활용해 댓글의 기능 구현하자! -->
+  <div class="container" v-show="show">
+    <label for="createComment" class="form-label">Create Comment</label>
+    <form style="display: flex; margin: 10px">
+      <input type="text" id="createComment" class="form-control" aria-describedby="" style="margin-right: 10px">
+      <button type="submit" class="btn btn-outline-dark" >submit</button>
+    </form>
+    <div class="bg-light" style="height: 150px; margin: 10px 50px 50px; padding: 20px 50px; ">
+      <div>User Name</div>
+      <div>This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.
+      </div>
+      <div>Created Date</div>
+      <button type="button" class="btn btn-secondary" style="height: 30px; padding-top: 0px;" @click="commentAnswerShow">Answer</button>
+      <div v-show="answerShow" class="bg-light" style="height: 150px; margin: 10px 50px 50px; padding: 20px 50px; ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4.854 1.146a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L4 2.707V12.5A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.707l3.146 3.147a.5.5 0 1 0 .708-.708l-4-4z"/>
+        </svg>
+        <label for="answerComment" class="form-label">Answer</label>
+        <form style="display: flex; margin: 10px">
+          <input type="text" id="answerComment" class="form-control" aria-describedby="" style="margin-right: 10px">
+          <button type="submit" class="btn btn-outline-dark" >submit</button>
+        </form>
+      </div>
 
+    </div>
+  </div>
+
+
+</main>
+<!--vue-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!--axios-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      show: false,
+      answerShow: false
+    },
+    methods:{
+      commentShow(){
+        this.show = !this.show
+      },
+      commentAnswerShow(){
+        this.answerShow = !this.answerShow
+      }
+    }
+  })
+</script>
 
 
 
